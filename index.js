@@ -28,7 +28,7 @@ app.use("/auth", userRoutes);
 
 
 
-const port = 5000;
+const port = process.env.BACKEND_PORT || 3000;
 app.listen(port, () =>{
     console.log(`Servidor funcionando en el ${port}`);
 });
