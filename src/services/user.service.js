@@ -21,8 +21,3 @@ export const crearUsuario = async (data) => {
     
     return usuario;
 }
-
-export const confirmarRegistro = (req, res) =>{
-    const {token} = req.params;
-    console.log(token)
-}

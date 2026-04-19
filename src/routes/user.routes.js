@@ -9,6 +9,8 @@ router.get("/login", formularioLogin);
 router.get("/registro", formularioRegistro);
 router.get("/recuperar-cuenta", formularioRecuperacion);
 router.get("/confirmar-registro/:token", confirmarRegistro)
+
+
 router.post("/registro", validarRegistro, registrar);
 
 

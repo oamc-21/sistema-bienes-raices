@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator"
 import { crearUsuario as crearUsuarioService } from "../services/user.service.js";
-
+import Usuario from "../models/user.model.js"
 
 const formularioLogin = (req, res) => {
     res.render("auth/login", {
@@ -48,9 +48,32 @@ const registrar = async (req, res) => {
 
 };
 
-const confirmarRegistro = (req, res) =>{
+const confirmarRegistro = async (req, res) =>{
     const {token} = req.params;
-    console.log(token)
+    const usuario = await Usuario.findOne({where: {token} })
+    if(!usuario){
+        return res.render("auth/confirmarCuenta",{
+            pagina: "Error al confirmar tu cuenta",
+            mensaje: "Ha ocurrido un problema al confirmar tu cuenta, intentalo de nuevo",
+            error: true
+        })
+    }  
+
+
+    // Confirmación de cuenta
+
+    usuario.token = null;
+    usuario.confirmado = true;
+    await usuario.save();
+
+    res.render("auth/confirmarCuenta",{
+            pagina: "Se ha confirmado tu cuenta exitosamente!",
+            mensaje: "Puedes iniciar sesión en tu cuenta ahora.",
+            
+        })
+
+
+
 }
 
 const formularioRecuperacion = (req, res) => {
